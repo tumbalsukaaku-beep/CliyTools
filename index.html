@@ -174,12 +174,12 @@
     <!-- KONTEN UTAMA -->
     <main class="max-w-4xl mx-auto px-4 pt-4 space-y-4">
 
-        <!-- ==================== TAB HOME (BERANDA SEPERTI GAMBER REFERENSI) ==================== -->
+        <!-- ==================== TAB HOME (BERANDA) ==================== -->
         <div id="tab-home" class="space-y-4">
             
-            <!-- 1. CONTAINER VIDEO PERSEGI PANJANG PRESISI SESUAI GAME/REFERENSI -->
-            <div class="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,210,255,0.25)] relative bg-slate-950 aspect-[16/9] sm:aspect-[21/9]">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover">
+            <!-- 1. CONTAINER VIDEO PERSEGI PANJANG (MUKA KELIHATAN PAS) -->
+            <div class="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,210,255,0.25)] relative bg-slate-950 aspect-[16/9] sm:aspect-[21/9] flex items-center justify-center">
+                <video autoplay muted loop playsinline class="w-full h-full object-contain">
                     <source src="video_1.mp4" type="video/mp4">
                 </video>
                 <div class="absolute inset-0 bg-gradient-to-t from-[#040814]/80 via-transparent to-transparent pointer-events-none"></div>
@@ -213,7 +213,7 @@
                 </div>
             </div>
 
-            <!-- 3. TOMBOL DENGAN IKON MAHKOTA (GANTI SALURAN WA & TIKTOK) -->
+            <!-- 3. TOMBOL DENGAN IKON MAHKOTA -->
             <div class="grid grid-cols-2 gap-3">
                 <button onclick="switchTab('vip')" class="flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-300 hover:from-amber-400 hover:to-amber-200 text-black font-extrabold py-3.5 px-4 rounded-2xl text-xs transition shadow-lg shadow-amber-500/20">
                     <i data-lucide="crown" class="w-4 h-4 text-black"></i>
@@ -225,7 +225,7 @@
                 </button>
             </div>
 
-            <!-- 4. TOOLS POPULER (POPULAR GRID SINGKAT DI BERANDA) -->
+            <!-- 4. TOOLS POPULER -->
             <div class="space-y-2 pt-2">
                 <div class="flex items-center justify-between text-xs text-slate-300 px-1 font-semibold">
                     <span class="flex items-center gap-1.5 text-white">
@@ -261,7 +261,7 @@
                 </div>
             </div>
 
-            <!-- 5. KOTAK INFORMASI TAMBAHAN / TELEGRAM SYSTEM -->
+            <!-- 5. KOTAK INFORMASI TAMBAHAN -->
             <div class="glass-card rounded-2xl p-6 text-center border border-slate-800 space-y-2 mt-4">
                 <div class="w-10 h-10 rounded-full bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center mx-auto text-cyan-400">
                     <i data-lucide="bot" class="w-5 h-5"></i>
@@ -272,7 +272,7 @@
 
         </div>
 
-        <!-- ==================== TAB TOOLS (SEMUA TOOLS DIPINDAHKAN KE SINI) ==================== -->
+        <!-- ==================== TAB TOOLS ==================== -->
         <div id="tab-tools" class="space-y-4 hidden">
             
             <div class="relative">
@@ -460,7 +460,7 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION UTAMA (BERANDA, TOOLS, VIP, PROFIL) -->
+    <!-- BOTTOM NAVIGATION UTAMA -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 glass-nav px-6 py-2.5">
         <div class="max-w-md mx-auto flex items-center justify-around">
             <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center gap-1 text-cyan-400 transition">
@@ -1170,7 +1170,6 @@
             container.innerHTML = html;
         }
 
-        // ENGINE TRANSLATOR DENGAN GONTA GANTI VERBS
         async function runTranslator() {
             let text = document.getElementById('translate-input').value.trim();
             const sourceLang = document.getElementById('translate-source').value;
