@@ -1502,8 +1502,8 @@
                                 <i data-lucide="image" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-extrabold text-white">Image to PNG & Scale Resizer</h3>
-                                <p class="text-[10px] text-cyan-400">Ubah format ke PNG dan atur skala sesuka hati</p>
+                                <h3 class="text-sm font-extrabold text-white">Image Converter, Pangkas & Resizer</h3>
+                                <p class="text-[10px] text-cyan-400">Ubah format PNG, Pangkas (Crop) & Atur Skala</p>
                             </div>
                         </div>
                     </div>
@@ -1515,13 +1515,52 @@
                         </div>
 
                         <div id="conv-settings" class="hidden space-y-3 pt-2 border-t border-slate-800">
+                            
+                            <!-- TOMBOL FITUR PANGKAS (CROP) -->
+                            <div class="bg-slate-900 p-3 rounded-xl border border-cyan-400/30 space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-cyan-400 flex items-center gap-1">
+                                        <i data-lucide="crop" class="w-4 h-4"></i> Pangkas Gambar (Crop)
+                                    </span>
+                                    <button onclick="toggleCropMode()" id="btn-toggle-crop" class="px-3 py-1 bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-bold rounded-lg text-[11px] hover:bg-cyan-500/30 transition">
+                                        Mulai Pangkas
+                                    </button>
+                                </div>
+                                <div id="crop-options" class="hidden space-y-2 pt-2 border-t border-slate-800">
+                                    <div class="flex gap-2">
+                                        <button onclick="setCropRatio('free')" class="flex-1 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 font-semibold text-[10px]">Bebas</button>
+                                        <button onclick="setCropRatio('1:1')" class="flex-1 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 font-semibold text-[10px]">1:1 (Persegi)</button>
+                                        <button onclick="setCropRatio('16:9')" class="flex-1 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 font-semibold text-[10px]">16:9</button>
+                                        <button onclick="setCropRatio('9:16')" class="flex-1 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 font-semibold text-[10px]">9:16</button>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="text-[10px] text-slate-400">Titik X (%): <span id="crop-x-val">0</span></label>
+                                            <input type="range" id="crop-x" min="0" max="80" value="0" oninput="updateCropPreview()" class="w-full accent-cyan-400">
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] text-slate-400">Titik Y (%): <span id="crop-y-val">0</span></label>
+                                            <input type="range" id="crop-y" min="0" max="80" value="0" oninput="updateCropPreview()" class="w-full accent-cyan-400">
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] text-slate-400">Lebar Pangkas (%): <span id="crop-w-val">100</span></label>
+                                            <input type="range" id="crop-w" min="20" max="100" value="100" oninput="updateCropPreview()" class="w-full accent-cyan-400">
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] text-slate-400">Tinggi Pangkas (%): <span id="crop-h-val">100</span></label>
+                                            <input type="range" id="crop-h" min="20" max="100" value="100" oninput="updateCropPreview()" class="w-full accent-cyan-400">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Lebar (Width px)</label>
+                                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Lebar Akhir (px)</label>
                                     <input type="number" id="conv-width" oninput="recalculateScale('w')" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono">
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Tinggi (Height px)</label>
+                                    <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Tinggi Akhir (px)</label>
                                     <input type="number" id="conv-height" oninput="recalculateScale('h')" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono">
                                 </div>
                             </div>
@@ -1529,8 +1568,8 @@
                                 <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Skala Persentase (<span id="scale-val">100</span>%)</label>
                                 <input type="range" id="conv-scale" min="10" max="300" value="100" oninput="changeImageScale(this.value)" class="w-full accent-cyan-400">
                             </div>
-                            <div class="text-center">
-                                <img id="conv-preview" class="max-h-40 mx-auto rounded-xl border border-cyan-400/40 shadow-lg my-2">
+                            <div class="text-center bg-slate-950 p-2 rounded-xl border border-slate-800">
+                                <img id="conv-preview" class="max-h-48 mx-auto rounded-lg border border-cyan-400/30 shadow-lg my-1 object-contain">
                             </div>
                             <button onclick="downloadConvertedPNG()" class="w-full bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-black font-extrabold py-3 rounded-xl text-xs transition shadow-lg shadow-cyan-400/20 flex items-center justify-center gap-2">
                                 <i data-lucide="download" class="w-4 h-4"></i> Download Gambar (.PNG)
@@ -1647,12 +1686,15 @@
         let activeImageObj = null;
         let originalW = 0;
         let originalH = 0;
+        let isCropActive = false;
+        let originalImageSrc = "";
 
         function previewImageToConvert(event) {
             const file = event.target.files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
+                originalImageSrc = e.target.result;
                 const img = new Image();
                 img.onload = function() {
                     activeImageObj = img;
@@ -1662,7 +1704,7 @@
                     document.getElementById('conv-height').value = originalH;
                     document.getElementById('conv-scale').value = 100;
                     document.getElementById('scale-val').textContent = '100';
-                    document.getElementById('conv-preview').src = e.target.result;
+                    document.getElementById('conv-preview').src = originalImageSrc;
                     document.getElementById('conv-settings').classList.remove('hidden');
                 };
                 img.src = e.target.result;
@@ -1670,12 +1712,78 @@
             reader.readAsDataURL(file);
         }
 
+        function toggleCropMode() {
+            isCropActive = !isCropActive;
+            const options = document.getElementById('crop-options');
+            const btn = document.getElementById('btn-toggle-crop');
+            if (isCropActive) {
+                options.classList.remove('hidden');
+                btn.textContent = "Tutup Pangkas";
+                btn.className = "px-3 py-1 bg-red-500/20 border border-red-400 text-red-300 font-bold rounded-lg text-[11px] hover:bg-red-500/30 transition";
+                updateCropPreview();
+            } else {
+                options.classList.add('hidden');
+                btn.textContent = "Mulai Pangkas";
+                btn.className = "px-3 py-1 bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-bold rounded-lg text-[11px] hover:bg-cyan-500/30 transition";
+                document.getElementById('conv-preview').src = originalImageSrc;
+                document.getElementById('conv-width').value = originalW;
+                document.getElementById('conv-height').value = originalH;
+            }
+        }
+
+        function setCropRatio(ratio) {
+            if (ratio === '1:1') {
+                document.getElementById('crop-w').value = 80;
+                document.getElementById('crop-h').value = 80;
+            } else if (ratio === '16:9') {
+                document.getElementById('crop-w').value = 90;
+                document.getElementById('crop-h').value = 50;
+            } else if (ratio === '9:16') {
+                document.getElementById('crop-w').value = 50;
+                document.getElementById('crop-h').value = 90;
+            } else {
+                document.getElementById('crop-w').value = 100;
+                document.getElementById('crop-h').value = 100;
+            }
+            updateCropPreview();
+        }
+
+        function updateCropPreview() {
+            if(!activeImageObj) return;
+            const xPer = parseInt(document.getElementById('crop-x').value) || 0;
+            const yPer = parseInt(document.getElementById('crop-y').value) || 0;
+            const wPer = parseInt(document.getElementById('crop-w').value) || 100;
+            const hPer = parseInt(document.getElementById('crop-h').value) || 100;
+
+            document.getElementById('crop-x-val').textContent = xPer;
+            document.getElementById('crop-y-val').textContent = yPer;
+            document.getElementById('crop-w-val').textContent = wPer;
+            document.getElementById('crop-h-val').textContent = hPer;
+
+            const sx = (xPer / 100) * originalW;
+            const sy = (yPer / 100) * originalH;
+            const sw = (wPer / 100) * (originalW - sx);
+            const sh = (hPer / 100) * (originalH - sy);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = sw;
+            canvas.height = sh;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(activeImageObj, sx, sy, sw, sh, 0, 0, sw, sh);
+
+            document.getElementById('conv-width').value = Math.round(sw);
+            document.getElementById('conv-height').value = Math.round(sh);
+            document.getElementById('conv-preview').src = canvas.toDataURL('image/png');
+        }
+
         function changeImageScale(scaleVal) {
             document.getElementById('scale-val').textContent = scaleVal;
             if(!activeImageObj) return;
             const factor = scaleVal / 100;
-            document.getElementById('conv-width').value = Math.round(originalW * factor);
-            document.getElementById('conv-height').value = Math.round(originalH * factor);
+            const baseW = isCropActive ? parseInt(document.getElementById('conv-width').value) : originalW;
+            const baseH = isCropActive ? parseInt(document.getElementById('conv-height').value) : originalH;
+            document.getElementById('conv-width').value = Math.round(baseW * factor);
+            document.getElementById('conv-height').value = Math.round(baseH * factor);
         }
 
         function recalculateScale(type) {
@@ -1698,11 +1806,26 @@
             canvas.width = w;
             canvas.height = h;
             const ctx = canvas.getContext('2d');
-            ctx.drawImage(activeImageObj, 0, 0, w, h);
+
+            if (isCropActive) {
+                const xPer = parseInt(document.getElementById('crop-x').value) || 0;
+                const yPer = parseInt(document.getElementById('crop-y').value) || 0;
+                const wPer = parseInt(document.getElementById('crop-w').value) || 100;
+                const hPer = parseInt(document.getElementById('crop-h').value) || 100;
+
+                const sx = (xPer / 100) * originalW;
+                const sy = (yPer / 100) * originalH;
+                const sw = (wPer / 100) * (originalW - sx);
+                const sh = (hPer / 100) * (originalH - sy);
+
+                ctx.drawImage(activeImageObj, sx, sy, sw, sh, 0, 0, w, h);
+            } else {
+                ctx.drawImage(activeImageObj, 0, 0, w, h);
+            }
 
             const pngDataUrl = canvas.toDataURL('image/png');
             const link = document.createElement('a');
-            link.download = 'cliytools-converted.png';
+            link.download = 'cliytools-cropped-scaled.png';
             link.href = pngDataUrl;
             link.click();
         }
