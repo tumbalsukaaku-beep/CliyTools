@@ -19,7 +19,7 @@
             padding: 0;
         }
 
-        /* Video Background Full Screen Blur halus */
+        /* Background Full Screen Blur halus - Diperbaiki agar tidak ada warna putih awal */
         #bg-video-full {
             position: fixed;
             top: 0;
@@ -29,6 +29,8 @@
             z-index: -2;
             object-fit: cover;
             filter: brightness(0.3) blur(8px);
+            background-color: #040814; /* Warna gelap sebagai fallback */
+            transition: opacity 0.5s ease-in-out;
         }
 
         .bg-overlay {
@@ -98,12 +100,17 @@
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #040814; }
         ::-webkit-scrollbar-thumb { background: #00d2ff; border-radius: 4px; }
+        
+        /* Menghilangkan warna putih pada kontainer video */
+        .video-container-dark {
+            background-color: #040814;
+        }
     </style>
 </head>
 <body class="pb-28 antialiased selection:bg-cyan-400 selection:text-black">
 
-    <!-- Video Background Utama -->
-    <video autoplay muted loop playsinline id="bg-video-full">
+    <!-- Video Background Utama (DIPERBAIKI: Tambah preload, poster, dan warna fallback gelap) -->
+    <video autoplay muted loop playsinline preload="auto" id="bg-video-full" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23040814'/%3E%3C/svg%3E">
         <source src="video_1.mp4" type="video/mp4">
     </video>
     <div class="bg-overlay"></div>
@@ -177,12 +184,13 @@
         <!-- ==================== TAB HOME (BERANDA) ==================== -->
         <div id="tab-home" class="space-y-4">
             
-            <!-- CONTAINER VIDEO DIPERBAIKI (Full Responsif & Tanpa Bilah Hitam) -->
-            <div class="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,210,255,0.25)] relative bg-slate-950 aspect-[16/9] max-h-[220px] sm:max-h-[300px]">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover absolute inset-0">
+            <!-- CONTAINER VIDEO DIPERBAIKI (Hilangkan gradasi putih, tambah bg gelap) -->
+            <div class="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,210,255,0.25)] relative video-container-dark aspect-[16/9] max-h-[220px] sm:max-h-[300px]">
+                <video autoplay muted loop playsinline preload="auto" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23040814'/%3E%3C/svg%3E" class="w-full h-full object-cover absolute inset-0">
                     <source src="video_1.mp4" type="video/mp4">
                 </video>
-                <div class="absolute inset-0 bg-gradient-to-t from-[#040814]/60 via-transparent to-transparent pointer-events-none"></div>
+                <!-- Overlay dihilangkan gradasinya agar tidak muncul efek putih/kilau saat video loading -->
+                <div class="absolute inset-0 bg-transparent pointer-events-none"></div>
             </div>
 
             <!-- KARTU INFORMASI PERANGKAT & USERNAME -->
