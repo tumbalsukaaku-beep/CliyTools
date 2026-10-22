@@ -177,15 +177,15 @@
         <!-- ==================== TAB HOME (BERANDA) ==================== -->
         <div id="tab-home" class="space-y-4">
             
-            <!-- 1. CONTAINER VIDEO PERSEGI PANJANG (MUKA KELIHATAN PAS) -->
-            <div class="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,210,255,0.25)] relative bg-slate-950 aspect-[16/9] sm:aspect-[21/9] flex items-center justify-center">
-                <video autoplay muted loop playsinline class="w-full h-full object-contain">
+            <!-- CONTAINER VIDEO: Dibuat height dinamis/fixed aspect lebih pas & object-cover penuh tanpa hitam -->
+            <div class="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,210,255,0.25)] relative bg-slate-950 h-48 sm:h-64">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover">
                     <source src="video_1.mp4" type="video/mp4">
                 </video>
-                <div class="absolute inset-0 bg-gradient-to-t from-[#040814]/80 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#040814]/60 via-transparent to-transparent pointer-events-none"></div>
             </div>
 
-            <!-- 2. KARTU INFORMASI PERANGKAT & USERNAME -->
+            <!-- KARTU INFORMASI PERANGKAT & USERNAME -->
             <div class="glass-card rounded-2xl p-4 border border-cyan-400/30 space-y-2.5">
                 <div class="flex justify-between items-center text-xs">
                     <span class="text-slate-400 font-semibold flex items-center gap-1.5">
@@ -213,7 +213,7 @@
                 </div>
             </div>
 
-            <!-- 3. TOMBOL DENGAN IKON MAHKOTA -->
+            <!-- TOMBOL DENGAN IKON MAHKOTA -->
             <div class="grid grid-cols-2 gap-3">
                 <button onclick="switchTab('vip')" class="flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-300 hover:from-amber-400 hover:to-amber-200 text-black font-extrabold py-3.5 px-4 rounded-2xl text-xs transition shadow-lg shadow-amber-500/20">
                     <i data-lucide="crown" class="w-4 h-4 text-black"></i>
@@ -225,7 +225,7 @@
                 </button>
             </div>
 
-            <!-- 4. TOOLS POPULER -->
+            <!-- TOOLS POPULER -->
             <div class="space-y-2 pt-2">
                 <div class="flex items-center justify-between text-xs text-slate-300 px-1 font-semibold">
                     <span class="flex items-center gap-1.5 text-white">
@@ -261,7 +261,7 @@
                 </div>
             </div>
 
-            <!-- 5. KOTAK INFORMASI TAMBAHAN -->
+            <!-- KOTAK INFORMASI TAMBAHAN -->
             <div class="glass-card rounded-2xl p-6 text-center border border-slate-800 space-y-2 mt-4">
                 <div class="w-10 h-10 rounded-full bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center mx-auto text-cyan-400">
                     <i data-lucide="bot" class="w-5 h-5"></i>
