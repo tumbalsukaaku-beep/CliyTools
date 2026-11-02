@@ -243,28 +243,28 @@
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    <div onclick="openTool('tiktok')" class="tool-box rounded-2xl p-3.5 flex flex-col items-center text-center cursor-pointer space-y-1.5">
+                    <div onclick="openTool('img-to-url')" class="tool-box rounded-2xl p-3.5 flex flex-col items-center text-center cursor-pointer space-y-1.5">
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
+                            <i data-lucide="link" class="w-4 h-4"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-white">Image to URL</h4>
+                        <p class="text-[9px] text-cyan-300">Ubah Gambar ke Link</p>
+                    </div>
+
+                    <div onclick="openTool('html-to-web')" class="tool-box rounded-2xl p-3.5 flex flex-col items-center text-center cursor-pointer space-y-1.5">
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
+                            <i data-lucide="code" class="w-4 h-4"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-white">HTML to Web</h4>
+                        <p class="text-[9px] text-cyan-300">Preview HTML Live</p>
+                    </div>
+
+                    <div onclick="openTool('tiktok')" class="tool-box rounded-2xl p-3.5 flex flex-col items-center text-center cursor-pointer space-y-1.5 col-span-2 sm:col-span-1">
                         <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
                             <i data-lucide="video" class="w-4 h-4"></i>
                         </div>
                         <h4 class="text-xs font-bold text-white">TikTok Downloader</h4>
                         <p class="text-[9px] text-cyan-300">No Watermark MP4</p>
-                    </div>
-
-                    <div onclick="openTool('youtube')" class="tool-box rounded-2xl p-3.5 flex flex-col items-center text-center cursor-pointer space-y-1.5">
-                        <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
-                            <i data-lucide="play-square" class="w-4 h-4"></i>
-                        </div>
-                        <h4 class="text-xs font-bold text-white">YouTube Downloader</h4>
-                        <p class="text-[9px] text-cyan-300">Video & MP3 Audio</p>
-                    </div>
-
-                    <div onclick="openTool('translator')" class="tool-box rounded-2xl p-3.5 flex flex-col items-center text-center cursor-pointer space-y-1.5 col-span-2 sm:col-span-1">
-                        <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
-                            <i data-lucide="languages" class="w-4 h-4"></i>
-                        </div>
-                        <h4 class="text-xs font-bold text-white">Translate Pro AI</h4>
-                        <p class="text-[9px] text-cyan-300">Akurat + Ganti Verbs</p>
                     </div>
                 </div>
             </div>
@@ -297,12 +297,32 @@
 
             <div class="space-y-2">
                 <div class="flex items-center justify-between text-xs text-slate-300 px-1 font-semibold">
-                    <span id="tools-count">CliyTools Hub (9)</span>
+                    <span id="tools-count">CliyTools Hub (11)</span>
                     <span class="text-cyan-400">Aktif</span>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="tools-grid">
                     
+                    <div onclick="openTool('img-to-url')" data-category="tools" data-name="image to url converter ubah gambar foto jadi link" class="tool-box rounded-2xl p-4 flex flex-col items-center text-center cursor-pointer space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
+                            <i data-lucide="link" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">Image to URL</h4>
+                            <p class="text-[10px] text-cyan-300 mt-0.5">Ubah Gambar ke Link</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTool('html-to-web')" data-category="tools" data-name="html to web previewer render tampilan website" class="tool-box rounded-2xl p-4 flex flex-col items-center text-center cursor-pointer space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
+                            <i data-lucide="code" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">HTML to Web</h4>
+                            <p class="text-[10px] text-cyan-300 mt-0.5">Render Tampilan Web</p>
+                        </div>
+                    </div>
+
                     <div onclick="openTool('tiktok')" data-category="downloader" data-name="tiktok downloader" class="tool-box rounded-2xl p-4 flex flex-col items-center text-center cursor-pointer space-y-2">
                         <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
                             <i data-lucide="video" class="w-5 h-5"></i>
@@ -1297,12 +1317,106 @@
             }
         }
 
+        // FUNGSI UNTUK IMAGE TO URL
+        function processImageToUrl(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const preview = document.getElementById('img-to-url-preview');
+            const resultContainer = document.getElementById('img-to-url-result');
+            const urlOutput = document.getElementById('img-to-url-output');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+                preview.src = dataUrl;
+                urlOutput.value = dataUrl;
+                resultContainer.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function copyImageUrl() {
+            const urlOutput = document.getElementById('img-to-url-output');
+            if (!urlOutput || !urlOutput.value) return;
+            navigator.clipboard.writeText(urlOutput.value);
+            alert('URL Data Gambar berhasil disalin!');
+        }
+
+        // FUNGSI UNTUK HTML TO WEB
+        function renderHtmlToWeb() {
+            const htmlCode = document.getElementById('html-code-input').value;
+            const iframe = document.getElementById('web-preview-frame');
+            if (!iframe) return;
+
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            doc.open();
+            doc.write(htmlCode);
+            doc.close();
+        }
+
         function openTool(type) {
             const modal = document.getElementById('tool-modal');
             const content = document.getElementById('modal-content');
             modal.classList.remove('hidden');
 
-            if (type === 'tiktok') {
+            if (type === 'img-to-url') {
+                content.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(0,210,255,0.2)]">
+                                <i data-lucide="link" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-extrabold text-white">Image to URL Generator</h3>
+                                <p class="text-[10px] text-cyan-400">Konversi Gambar Langsung Menjadi URL Data</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 flex-1 overflow-y-auto space-y-4 text-xs">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Pilih File Gambar:</label>
+                            <input type="file" id="img-to-url-file" accept="image/*" onchange="processImageToUrl(event)" class="w-full bg-slate-900 border border-slate-700 text-slate-300 p-2.5 rounded-xl text-xs file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400">
+                        </div>
+                        <div id="img-to-url-result" class="hidden space-y-3">
+                            <div class="text-center bg-slate-950 p-2 rounded-xl border border-slate-800">
+                                <img id="img-to-url-preview" class="max-h-40 mx-auto rounded-lg border border-cyan-400/30 shadow-lg my-1 object-contain">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-cyan-400 uppercase mb-1">Generated Image URL:</label>
+                                <textarea id="img-to-url-output" readonly class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-cyan-300 font-mono text-[10px] h-24 outline-none break-all"></textarea>
+                            </div>
+                            <button onclick="copyImageUrl()" class="w-full bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-black font-extrabold py-3 rounded-xl text-xs transition shadow-lg shadow-cyan-400/20 flex items-center justify-center gap-2">
+                                <i data-lucide="copy" class="w-4 h-4"></i> Salin Link URL Gambar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'html-to-web') {
+                content.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(0,210,255,0.2)]">
+                                <i data-lucide="code" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-extrabold text-white">HTML to Web Viewer</h3>
+                                <p class="text-[10px] text-cyan-400">Ubah Kode HTML Menjadi Tampilan Website Live</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 flex-1 overflow-y-auto space-y-3 text-xs flex flex-col">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">Masukkan Kode HTML / CSS / JS:</label>
+                            <textarea id="html-code-input" oninput="renderHtmlToWeb()" placeholder="<h1>Hello World</h1><p>Ketik kode HTML di sini...</p>" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-cyan-300 font-mono h-32 outline-none focus:border-cyan-400 transition"></textarea>
+                        </div>
+                        <div class="flex-1 flex flex-col min-h-[220px]">
+                            <label class="block text-[11px] font-semibold text-cyan-400 uppercase mb-1">Pratinjau Tampilan Web Live:</label>
+                            <iframe id="web-preview-frame" class="w-full flex-1 bg-white rounded-xl border border-cyan-400/40 shadow-inner"></iframe>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'tiktok') {
                 content.innerHTML = `
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3 shrink-0">
                         <div class="flex items-center gap-3">
